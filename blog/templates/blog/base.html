@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title></title>
+
+    <!-- Medium style Editor -->
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <link rel="stylesheet" href="{% static 'css/loader.css' %}">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One&display=swap" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end">
+    <ul class="navbar-nav techfont">
+      {% url 'post_list' as home_url %}
+      <li class="nav-item {% if request.get_full_path == home_url %} active {% endif %}">
+        <a class="nav-link" href="{% url 'post_list' %}">My Blog</a>
+      </li>
+      {% url 'about' as about_url %}
+      <li class="nav-item {% if request.get_full_path == about_url %} active {% endif %}">
+        <a class="nav-link" href="{% url 'about' %}">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://github.com/edumenu" target="_blank">Github</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://www.linkedin.com/in/edem-dumenu-b9497712a/" target="_blank">LinkedIn</a>
+      </li>
+      {% if user.is_authenticated %}
+      {% url 'post_new' as post_new_url %}
+      <li class="nav-item">
+        <a class="nav-link {% if request.get_full_path == post_new_url %} active {% endif %}" href="{% url 'post_new' %}">New Post</a>
+      </li>
+      {% url 'post_draft_list' as post_draft_list_url %}
+      <li class="nav-item">
+        <a class="nav-link {% if request.get_full_path == post_draft_list_url %} active {% endif %}" href="{% url 'post_draft_list' %}">Drafts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">Welcome: <span class="userOnline">{{user.username}}</span></a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}"> <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i> </a>
+      </li>
+      {% endif %}
+    </ul>
+    </nav>
+
+    <!-- Content block -->
+    <div class="content container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="blog_posts">
+            {% block content %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
