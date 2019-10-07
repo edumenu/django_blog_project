@@ -1,16 +1,29 @@
 {% extends 'blog/base.html' %}
+{% load staticfiles %}
 
 {% block content %}
-<div class="centerstage">
-  {% for post in post_list %}
-  <div class="post">
-    <!-- Link to the post detail -->
-    <h1> <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-    <div class="date">
-      <p>Published on: {{post.published|date:"D M Y"}}</p>
+
+<div class="container-fluid techfont">
+    {% for post in post_list %}
+    <div class="row">
+        <div class="col-12 mt-3">
+            <div class="card">
+                <div class="card-horizontal">
+                    <div class="img-square-wrapper">
+                        <img class="img-responsive" src="{{post.post_img.url}}" alt="Card image cap" style="width:290px;height:260px;">
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title"> <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+                        <p class="card-text">{{ post.text|safe|linebreaksbr }}</p>
+                        <small> Published on: {{post.published_date|date:"d M Y"}}</small> <small>, author: {{ post.author|safe }}</small>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{post.approve_comments.count}}</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{post.approve_comments.count}}</a>
-  </div>
-  {% endfor %}
+    {% endfor %}
 </div>
 {% endblock %}

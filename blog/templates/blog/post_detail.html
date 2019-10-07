@@ -2,7 +2,61 @@
 
 {% block content %}
 
-  <h1 class="posttitle">{{post.title}}</h1>
+    <div class="card techfont" style="width: 20;">
+      <div class="img-square-wrapper">
+          <img class="" src="{{post.post_img.url}}" alt="Card image cap" style="width:280px;height:260px;">
+
+      </div>
+      <div class="card-body">
+        <h1 class="card-title">Post: {{post.title}}</h1>
+
+        {% if post.published_date %}
+         <div class="date postdate">
+           Publish date: {{ post.published_date }}
+         </div>
+        {% else %}
+          <a class="btn btn-success" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
+        {% endif %}
+
+        <li class="list-group-item">{{ post.text|safe|linebreaksbr }}</li><br>
+
+        {% if user.is_authenticated %}
+          <a class="btn btn-primary float-right" href="{% url 'post_edit' pk=post.pk %}" title="Edit text"> <i class="fa fa-pencil" aria-hidden="true"></i></a>
+          <a class="btn btn-danger float-right" href="{% url 'post_remove' pk=post.pk %}" title="Delete text"> <i class="fa fa-trash" aria-hidden="true"></i></a><br><br>
+        {% endif %}
+
+        <hr>
+
+        <h1 class="card-title">Comments</h1>
+        <div class="container">
+          {% for comment in post.comments.all %}
+          <br>
+            {% if user.is_authenticated or comment.approved_comment %}
+                <li class="list-group-item">{{comment.text|safe|linebreaks}} <p>Posted By: {{comment.author}} , {{comment.create_date}}</p></li><br>
+
+                {% if not comment.approved_comment %}
+                  <a class="btn btn-danger float-right" href="{% url 'comment_remove' pk=comment.pk %}"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+                  <a class="btn btn-success float-right" href="{% url 'comment_approve' pk=comment.pk %}"> <i class="fa fa-check-circle" aria-hidden="true"></i></a><br><br><br><br>
+                {% endif %}
+
+            {% endif %}
+            {% empty %}
+             <p>No Comments!</p>
+          {% endfor %}
+        </div>
+        <a class="btn btn-primary postdate float-right" href="{% url 'add_comment_to_post' pk=post.pk %}">Add Comment</a>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+  <!-- <h1 class="posttitle">{{post.title}}</h1>
   {% if post.published_date %}
    <div class="date postdate">
      {{ post.published_date }}
@@ -39,6 +93,6 @@
       {% empty %}
        <p>No Comments!</p>
     {% endfor %}
-  </div>
+  </div> -->
 
 {% endblock %}

@@ -3,9 +3,11 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title></title>
 
     <!-- Medium style Editor -->
@@ -14,13 +16,18 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <link rel="stylesheet" href="{% static 'css/particle.css' %}">
     <link rel="stylesheet" href="{% static 'css/loader.css' %}">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One&display=swap" rel="stylesheet">
 
+
+
   </head>
   <body>
+    <!-- particles.js container -->
+    <div id="particles-js"></div>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end">
@@ -56,7 +63,7 @@
       </li>
       {% else %}
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'login' %}"> <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i> </a>
+        <a class="nav-link" href="{% url 'login' %}"> <i class="fa fa-user-circle-o fa-lg" aria-hidden="true" style="color:green"></i> </a>
       </li>
       {% endif %}
     </ul>
@@ -65,7 +72,7 @@
     <!-- Content block -->
     <div class="content container">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
           <div class="blog_posts">
             {% block content %}
             {% endblock %}
@@ -74,5 +81,9 @@
       </div>
     </div>
 
+
+    <!-- Js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
   </body>
 </html>
