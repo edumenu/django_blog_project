@@ -1,10 +1,12 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-
+{% load staticfiles %}
     <div class="card techfont" style="width: 20;">
       <div class="img-square-wrapper">
-          <img class="" src="{{post.post_img.url}}" alt="Card image cap" style="width:280px;height:260px;">
+          <!-- <img class="" src="{{post.post_img.url}}" alt="Card image cap" style="width:280px;height:260px;"> -->
+          <img class="" src="{% static "images/default.png" %}" alt="Card image cap" style="width:280px;height:260px;">
+          value_when_true if condition else value_when_false
       </div>
     <div class="card-body">
       <h5 class="card-title align text-center">New Post</h5>
@@ -19,15 +21,4 @@
       <script> var editor = new MediumEditor('.editable');</script>
     </div>
   </div>
-
-
-
-  <!-- <h1>New Post</h1>
-  <form method="POST" class="post-form">
-    {%csrf_token%}
-    {{form.as_p}}
-    <button type="submit" class="save btn btn-success" name="button">Submit</button>
-  </form>
-
-  <script> var editor = new MediumEditor('.editable');</script> -->
 {% endblock %}

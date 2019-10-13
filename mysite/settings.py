@@ -28,7 +28,7 @@ SECRET_KEY = '5e5$li+5l6h=e-)r7r875(id&zt2et*k0madw(g1fcl4ag_@$3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['edumenu.pythonanywhere.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
